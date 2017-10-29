@@ -13,4 +13,13 @@ class Set1 {
                 base64Value,
                 Convert.toBase64(hexValue))
     }
+
+    @Test
+    fun fixedXOR(){
+        val originalValue = "1c0111001f010100061a024b53535009181c"
+        val foobar = "686974207468652062756c6c277320657965"
+        val expectedValue = "746865206b696420646f6e277420706c6179"
+
+        assertEquals(expectedValue, Convert.XOR(originalValue, foobar))
+    }
 }
