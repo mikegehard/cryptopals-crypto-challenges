@@ -4,8 +4,8 @@ import java.util.*
 import kotlin.experimental.xor
 
 
-object Convert {
-    val HEX_RADIX = 16
+object Tools {
+    val HEX = 16
 
     fun toBase64(hexValue: String): String =
             Base64.getEncoder().encodeToString(decode(hexValue))
@@ -17,12 +17,12 @@ object Convert {
 
         return even.zip(odd)
                 .map { it.toList().toCharArray().joinToString(separator = "") }
-                .map { it.toByte(HEX_RADIX) }
+                .map { it.toByte(HEX) }
                 .toByteArray()
     }
 
     fun XOR(a: String, b: String): String =
             decode(a).zip(decode(b))
                     .map { (a, b) -> a.xor(b) }
-                    .joinToString(separator = "") { it.toString(HEX_RADIX) }
+                    .joinToString(separator = "") { it.toString(HEX) }
 }
