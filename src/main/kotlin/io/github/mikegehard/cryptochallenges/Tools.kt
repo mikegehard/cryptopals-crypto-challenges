@@ -3,14 +3,17 @@ package io.github.mikegehard.cryptochallenges
 import java.util.*
 import kotlin.experimental.xor
 
+data class HexEncodedString(private val original: String) {
+    fun toCharArray():CharArray = original.toCharArray()
+}
 
 object Tools {
-    val HEX = 16
+    private val HEX = 16
 
-    fun toBase64(hexValue: String): String =
+    fun toBase64(hexValue: HexEncodedString): String =
             Base64.getEncoder().encodeToString(decode(hexValue))
 
-    private fun decode(hexValue: String): ByteArray {
+    private fun decode(hexValue: HexEncodedString): ByteArray {
         val chars = hexValue.toCharArray()
         val even = chars.filterIndexed { i, _ -> i % 2 == 0 }
         val odd = chars.filterIndexed { i, _ -> i % 2 != 0 }
@@ -21,7 +24,7 @@ object Tools {
                 .toByteArray()
     }
 
-    fun XOR(a: String, b: String): String =
+    fun XOR(a: HexEncodedString, b: HexEncodedString): String =
             decode(a).zip(decode(b))
                     .map { (a, b) -> a.xor(b) }
                     .joinToString(separator = "") { it.toString(HEX) }
