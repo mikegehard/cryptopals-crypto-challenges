@@ -1,7 +1,4 @@
-import io.github.mikegehard.cryptochallenges.HexEncodedString
-import io.github.mikegehard.cryptochallenges.Xor
-import io.github.mikegehard.cryptochallenges.findActualSentence
-import io.github.mikegehard.cryptochallenges.score
+import io.github.mikegehard.cryptochallenges.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.nio.file.FileSystems
@@ -91,5 +88,13 @@ class Set1 {
                 .findActualSentence()
 
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun canEncodeWithRepeatingKeyXor() {
+        val input = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"
+        val expected = HexEncodedString("0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f")
+
+        assertEquals(expected, input.encodeWithRepeatingKeyXor("ICE"))
     }
 }

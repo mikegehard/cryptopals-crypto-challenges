@@ -35,6 +35,14 @@ fun String.score(): Double {
     }
 }
 
+fun String.encodeWithRepeatingKeyXor(key: String): HexEncodedString {
+    val bytes = toByteArray()
+    val keyBytes = key.toByteArray()
+    val foo = ByteArray(bytes.size) {i -> keyBytes[i % key.length]}
+    val bar = bytes.Xor(foo)
+    return HexEncodedString.from(bar)
+}
+
 fun List<String>.findActualSentence() =
         map { Pair(it.score(), it) }
                 .sortedByDescending { it.first }
