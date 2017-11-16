@@ -34,3 +34,8 @@ fun String.score(): Double {
         0.0
     }
 }
+
+fun List<String>.findActualSentence() =
+        map { Pair(it.score(), it) }
+                .sortedByDescending { it.first }
+                .first().second

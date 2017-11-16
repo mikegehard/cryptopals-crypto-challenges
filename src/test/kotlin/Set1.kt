@@ -1,9 +1,11 @@
-
 import io.github.mikegehard.cryptochallenges.HexEncodedString
 import io.github.mikegehard.cryptochallenges.Xor
+import io.github.mikegehard.cryptochallenges.findActualSentence
 import io.github.mikegehard.cryptochallenges.score
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.nio.file.FileSystems
+import java.nio.file.Files
 
 class Set1 {
 
@@ -75,5 +77,19 @@ class Set1 {
         val expected = "Cooking MC's like a pound of bacon"
 
         assertEquals(expected, encodedString.singleCharDecode())
+    }
+
+    @Test
+    fun detectProperEncodedString() {
+        val lines = Files.readAllLines(
+                FileSystems.getDefault().getPath(".", "files", "single-char-or.txt")
+        )
+
+        val expected = "Now that the party is jumping"
+        val actual = lines
+                .map { HexEncodedString(it).singleCharDecode().trim() }
+                .findActualSentence()
+
+        assertEquals(expected, actual)
     }
 }

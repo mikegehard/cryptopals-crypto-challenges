@@ -27,12 +27,6 @@ data class HexEncodedString(private val original: String) {
             HexEncodedString.from(pair.second).toPlaintext()
         }
 
-        return possiblePlainTexts
-                .map {
-                    Pair(it.score(), it)
-                }
-                .sortedByDescending { it.first }
-                .first()
-                .second
+        return possiblePlainTexts.findActualSentence()
     }
 }
