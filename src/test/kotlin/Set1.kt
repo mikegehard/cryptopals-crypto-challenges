@@ -97,4 +97,14 @@ class Set1 {
 
         assertEquals(expected, input.encodeWithRepeatingKeyXor("ICE"))
     }
+
+    @Test
+    fun canCalculateHammingDistance() {
+        val a = "this is a test"
+        val b = "wokka wokka!!!"
+
+        assertEquals(37, a.hammingDistanceFrom(b))
+    }
 }
+
+

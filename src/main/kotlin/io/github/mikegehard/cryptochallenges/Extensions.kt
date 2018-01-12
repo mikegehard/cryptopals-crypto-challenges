@@ -38,10 +38,19 @@ fun String.score(): Double {
 fun String.encodeWithRepeatingKeyXor(key: String): HexEncodedString {
     val bytes = toByteArray()
     val keyBytes = key.toByteArray()
-    val foo = ByteArray(bytes.size) {i -> keyBytes[i % key.length]}
+    val foo = ByteArray(bytes.size) { i -> keyBytes[i % key.length] }
     val bar = bytes.Xor(foo)
     return HexEncodedString.from(bar)
 }
+
+fun String.hammingDistanceFrom(other: String): Int {
+    val myBytes = this.toByteArray()
+    val otherBytes = other.toByteArray()
+    val differentBytes = myBytes.Xor(otherBytes)
+    return differentBytes.map { it.numberSet() }.sum()
+}
+
+fun Byte.numberSet(): Int = this.toString(2).filter { it == '1' }.count()
 
 fun List<String>.findActualSentence() =
         map { Pair(it.score(), it) }
